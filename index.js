@@ -1,23 +1,32 @@
-const sum = (a,b) => a+b
+/* Write a function that satisfies the following.
 
-const cacheEnchancer = (fun) => {
-  const cacheMap = new Map();
-  return function(...arguments){
-    const keyFromArguments = arguments.sort((a,b) => a+b).join(',')
-    if(cacheMap.has(keyFromArguments)){
-      return cacheMap.get(keyFromArguments)
-    }
-    else {
-      const keyFromArguments = arguments.sort((a,b) => a+b).join(',')
-      const result = fun(...arguments)
-      cacheMap.set(keyFromArguments,result)
-      return result
-    }
+add(1)(2).value() = 3; 
+add(1, 2)(3).value() = 6; 
+add(1)(2)(3).value() = 6; 
+add(1)(2) + 3 = 6;
+
+*/
+
+//
+// return a object with value method to get results of the parameters
+
+function add(...p1) {
+  let sum = p1.reduce((p, c) => {
+    return p + c;
+  }, 0);
+  function fun(...p2) {
+    return add(...p1, ...p2);
   }
+  fun.value = () => {
+    return sum;
+  };
+  fun.valueOf = () => sum;
+  return fun;
 }
 
-const cachedSum = cacheEnchancer(sum)
+console.log(add(1)(2).value());
+console.log(add(1, 2)(3).value());
+console.log(add(1)(2)(3).value());
+console.log(add(1)(2) + 3);
 
-console.log(cachedSum(1,2))
-console.log(cachedSum(1,2))
-console.log(cachedSum(2,2))
+//link - https://learnersbucket.com/examples/interview/currying-part-3/
