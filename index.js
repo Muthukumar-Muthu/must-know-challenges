@@ -1,32 +1,26 @@
-/* Write a function that satisfies the following.
+/*
+Input:
+groupBy([6.1, 4.2, 6.3], Math.floor);
+groupBy(["one", "two", "three"], "length");
 
-add(1)(2).value() = 3; 
-add(1, 2)(3).value() = 6; 
-add(1)(2)(3).value() = 6; 
-add(1)(2) + 3 = 6;
-
+Output:
+// { 6: [6.1, 6.3], 4: [4.2] }
+// { 3: ['one', 'two'], 5: ['three'] }
 */
 
-//
-// return a object with value method to get results of the parameters
+const groupBy = (collection, iteratee) => {
+  const getKey = typeof iteratee === "function" ? iteratee : (p) => p[iteratee];
 
-function add(...p1) {
-  let sum = p1.reduce((p, c) => {
-    return p + c;
-  }, 0);
-  function fun(...p2) {
-    return add(...p1, ...p2);
-  }
-  fun.value = () => {
-    return sum;
-  };
-  fun.valueOf = () => sum;
-  return fun;
-}
+  return collection.reduce((p, c) => {
+    const key = getKey(c);
+    if ([key] in p) {
+      p[key] = [...p[key], c];
+    } else p[key] = [c];
+    return p;
+  }, {});
+};
 
-console.log(add(1)(2).value());
-console.log(add(1, 2)(3).value());
-console.log(add(1)(2)(3).value());
-console.log(add(1)(2) + 3);
+console.log(groupBy([6.1, 4.2, 6.3], Math.floor));
+console.log(groupBy(["one", "two", "three"], "length"));
 
-//link - https://learnersbucket.com/examples/interview/currying-part-3/
+//https://learnersbucket.com/examples/interview/groupby-polyfill-in-javascript/
