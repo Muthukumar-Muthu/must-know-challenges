@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import useDebounce from "./useDebounce";
+import useThrottle from "./useThrottle";
 
 const initalState = { isMobile: false, isTablet: false, isDesktop: false };
 
 export default function useResponsive() {
   const [device, setDevice] = useState(initalState);
-  const debouncedListener = useRef(useDebounce(resizeListener, 1000));
+  const debouncedListener = useRef(useThrottle(resizeListener, 1000));
   useEffect(() => {
     debouncedListener.current();
     window.addEventListener("resize", debouncedListener.current);

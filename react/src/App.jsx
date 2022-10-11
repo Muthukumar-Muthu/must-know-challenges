@@ -9,10 +9,14 @@ export default function App() {
   const debouncedRef = useRef(useDebounce(sendRequest, 200));
   const throttledRef = useRef(useThrottle(sendRequest, 2000));
   const device = useResponsive();
+
   function changeHandler(e) {
     setValue(e.target.value);
   }
-  console.log(device);
+  useEffect(() => {
+    console.log(device); //only runs if device width changes
+  }, [...Object.values(device)]);
+
   useEffect(() => {
     if (value !== "") debouncedRef.current(value);
   }, [value]);
