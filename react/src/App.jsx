@@ -4,7 +4,7 @@ import UseThrottle from "./pages/useThrottle";
 import UseAsync from "./pages/UseAsync";
 import UseDebounce from "./pages/UseDebounce";
 import UseResponsive from "./pages/useResponsive";
-
+import UseOnScreen from "./pages/useOnScreen";
 export default function App() {
   return (
     <div className="App">
@@ -24,6 +24,9 @@ export default function App() {
         <li>
           <Link to="/useThrottle">useThrottle</Link>
         </li>
+        <li>
+          <Link to="/useOnScreen">useOnScreen</Link>
+        </li>
       </ul>
       <Routes>
         <Route path="/" element={<h1>Home</h1>} />
@@ -31,6 +34,7 @@ export default function App() {
         <Route path="/useDebounce" element={<UseDebounce />} />
         <Route path="/useReponsive" element={<UseResponsive />} />
         <Route path="/useThrottle" element={<UseThrottle />} />
+        <Route path="/useOnScreen" element={<UseOnScreen />} />
       </Routes>
     </div>
   );
