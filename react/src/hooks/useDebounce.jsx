@@ -1,6 +1,5 @@
 function debounce(fun, delay) {
   let clearIntervalId = null;
-  console.log("debounce");
 
   return (...p) => {
     if (clearIntervalId) clearInterval(clearIntervalId);
